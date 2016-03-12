@@ -1,0 +1,10 @@
+{% if latest_task %}
+    <ul>
+    {% for task in latest_task %}
+        <li><a href="/todoapp/{{ task.id }}/">{{ task.name }}</a></li>
+        <li><a href="{% url 'show' task.id %}">{{ task.task_description }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tasks are available. Create One</p>
+{% endif %} 
