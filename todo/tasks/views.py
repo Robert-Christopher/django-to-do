@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from django.utils import timezone
 from .models import task
 # Create your views here.
@@ -22,15 +23,20 @@ def create(request):
             created=timezone.now()
         )
         create_task.save()
+        messages.success(request, 'Task created')
     return HttpResponseRedirect(reverse('tasks:index'))
 
 def show(request, task_id):
     show_task = get_object_or_404(task, pk=task_id)
     return render(request, 'tasks/show.html', {'task': show_task})
 
-
 def edit(request, task_id):
     edit_task = get_object_or_404(task, pk=task_id)
+    return render(request, 'tasks/new.html', {'task': edit_task})
+
+
+def update(request, task_id):
+    update_task = get_object_or_404(task, pk=task_id)
     try:
         selected_name = task.objects.get(pk=request.POST['name'])
     except (KeyError, task.DoesNotExist):
@@ -40,12 +46,14 @@ def edit(request, task_id):
             'error_message': "You didn't select a Task",
         })
     else:
-        edit_task.name = selected_name
-        edit_task.save()
+        update_task.name = selected_name
+        update_task.save()
+        messages.success(request, 'Task updated')
         return HttpResponseRedirect(reverse('tasks:show', args=(task.id,)))
 
 
 def delete(request, task_id):
     delete_task = get_object_or_404(task, pk=task_id)
     delete_task.delete()
+    messages.error(request, 'Task Deleted')
     return HttpResponseRedirect(reverse('tasks:index'))
