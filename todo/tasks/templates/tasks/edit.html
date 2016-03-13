@@ -1,0 +1,14 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h1>{{ task.task_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'tasks:edit' task.id %}" method="post">
+{% csrf_token %}
+    <input type="text" name="name" id="name" value="{{ task.id }}" />
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

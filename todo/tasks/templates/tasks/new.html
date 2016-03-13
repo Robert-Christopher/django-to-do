@@ -1,0 +1,14 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<form action="{% url 'tasks:create' %}" method="post">
+    {% csrf_token %}
+    <label>Task: </label>
+    <input name="name">
+    <br>
+    <label>Description: </label>
+    <input name="description">
+    <br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
