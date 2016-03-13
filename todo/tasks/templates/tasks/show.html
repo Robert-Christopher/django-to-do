@@ -1,6 +1,17 @@
 {% extends 'tasks/base.html' %}
 
 {% block content %}
-<h3>{{ task.name }}</h3>
-<p>{{ task.description }}</p>
+    <div class="row">
+    <div class="col-md-8">
+        <h3>{{ task.name }}</h3>
+        <p>{{ task.description }}</p>
+        <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+        {% for tag in task.tags.all %}
+        <span class="label label-info">{{ tag.name }}</span>
+        {% endfor %}
+        <h4><small><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ task.created }}</small></h4>
+        <h4><small><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ task.updated }}</small></h4>
+        <a href="{% url 'tasks:index' %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back</a></h2>
+    </div>
+    </div>
 {% endblock %}

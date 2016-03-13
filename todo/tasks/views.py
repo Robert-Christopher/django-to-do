@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils import timezone
-from .models import task
+from .models import task, taskForm
+
 # Create your views here.
 
 
@@ -12,23 +13,29 @@ def index(request):
     context = {'latest_task': latest_task}
     return render(request, 'tasks/index.html', context)
 
+
 def new(request):
     return render(request, 'tasks/new.html')
 
+
 def create(request):
     if request.method == 'POST':
-        create_task = task(
-            name=request.POST['name'],
-            description=request.POST['description'],
-            created=timezone.now()
-        )
-        create_task.save()
-        messages.success(request, 'Task created')
-    return HttpResponseRedirect(reverse('tasks:index'))
+        form = taskForm(request.POST)
+        if form.is_valid():
+            task_data = form.save(commit=False)
+            task_data.timestamp = timezone.now()
+            task_data.save()
+            form.save_m2m()
+            messages.success(request, 'Task created')
+            return HttpResponseRedirect(reverse('tasks:index'))
+        messages.error(request, form.errors)
+        return render(request, 'tasks/new.html', {'form': form})
+
 
 def show(request, task_id):
     show_task = get_object_or_404(task, pk=task_id)
     return render(request, 'tasks/show.html', {'task': show_task})
+
 
 def edit(request, task_id):
     edit_task = get_object_or_404(task, pk=task_id)

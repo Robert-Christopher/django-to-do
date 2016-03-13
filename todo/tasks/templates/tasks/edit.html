@@ -3,12 +3,19 @@
 {% block content %}
 <form action="{% url 'tasks:update' task.id %}" method="post">
     {% csrf_token %}
-    <label>Task: </label>
-    <input name="name">
-    <br>
-    <label>Description: </label>
-    <input name="description">
-    <br>
-    <input type="submit" value="Submit">
+    <div class="form-group">
+    <label for="task">Task</label>
+    <input type="text" class="form-control" id="task" placeholder="Task Title" name="task">
+    </div>
+    <div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" class="form-control" id="description" placeholder="Short description of the task" name="description">
+    </div>
+    <div class="form-group">
+    <label for="tags">Tags</label>
+    <input type="text" class="form-control" id="tags" placeholder="Tags" name="tags">
+    </div>
+    <a href="{% url 'tasks:index' %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back</a></h2>
+    <button type="submit" class="btn btn-success" value="Submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
 </form>
 {% endblock %}
