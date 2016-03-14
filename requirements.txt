@@ -1,3 +1,4 @@
+dj-database-url==0.4.0
 Django==1.9.4
 django-taggit==0.18.0
 flake8==2.5.4
@@ -6,3 +7,4 @@ mccabe==0.4.0
 pep8==1.7.0
 psycopg2==2.6.1
 pyflakes==1.0.0
+whitenoise==2.0.6
