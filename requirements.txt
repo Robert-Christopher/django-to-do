@@ -1,6 +1,7 @@
 Django==1.9.4
 django-taggit==0.18.0
 flake8==2.5.4
+gunicorn==19.4.5
 mccabe==0.4.0
 pep8==1.7.0
 psycopg2==2.6.1
