@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from django.forms import ModelForm
 from django.db import models
 from django.utils import timezone
-from taggit.managers import TaggableManager
 # Create your models here.
 
 
@@ -11,7 +10,6 @@ class task(models.Model):
     description = models.TextField()
     created = models.DateTimeField(editable=False)
     updated = models.DateTimeField(auto_now=True)
-    tags = TaggableManager()
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
@@ -27,4 +25,4 @@ class task(models.Model):
 class taskForm(ModelForm):
     class Meta:
         model = task
-        fields = ['name', 'description', 'tags']
+        fields = ['name', 'description']
