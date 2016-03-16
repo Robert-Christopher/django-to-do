@@ -1,6 +1,6 @@
 dj-database-url==0.4.0
 Django==1.9.4
-django-taggit==0.18.0
+django-crispy-forms==1.6.0
 flake8==2.5.4
 gunicorn==19.4.5
 mccabe==0.4.0
