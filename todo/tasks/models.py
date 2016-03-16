@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from django.forms import ModelForm
 from django.db import models
 from django.utils import timezone
 # Create your models here.
@@ -21,8 +20,3 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
-
-class TaskForm(ModelForm):
-    class Meta:
-        model = Task
-        fields = ['name', 'description', 'tags']
