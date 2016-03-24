@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils import timezone
 from .models import Task
-from .forms import TaskFormSet
+from .forms import TaskForm
 
 # Create your views here.
 
@@ -20,7 +20,7 @@ def create(request, task_id=None, template_name='tasks/create.html'):
         task = get_object_or_404(Task, pk=task_id)
     else:
         task = Task()
-    form = TaskFormSet(request.POST or None, instance=task)
+    form = TaskForm(request.POST or None, instance=task)
     if request.method == 'POST':
         if form.is_valid():
             task_data = form.save()
@@ -29,7 +29,7 @@ def create(request, task_id=None, template_name='tasks/create.html'):
             messages.success(request, 'Task created')
             return HttpResponseRedirect(reverse('tasks:index'))
     else:
-        form = TaskFormSet(instance=task)
+        form = TaskForm(instance=task)
     messages.error(request, form.errors)
     return render(request, 'tasks/create.html', {'form': form})
 
@@ -37,6 +37,7 @@ def create(request, task_id=None, template_name='tasks/create.html'):
 def show(request, task_id):
     show_task = get_object_or_404(Task, pk=task_id)
     return render(request, 'tasks/show.html', {'task': show_task})
+
 
 def update(request, task_id):
     update_task = get_object_or_404(Task, pk=task_id)

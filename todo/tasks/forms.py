@@ -1,32 +1,24 @@
-from django.forms import ModelForm, inlineformset_factory
+from django.forms import ModelForm
 from django import forms
-from .models import Task, Tag, Tagmap
+from .models import Task
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
+from crispy_forms.layout import Submit
+
 
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'tags']
 
     name = forms.CharField(max_length=100)
-    description = forms.CharField()
-    
+    description = forms.CharField(max_length=100)
+
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-task'
+        self.helper.form_class = 'task'
+        self.helper.form_method = 'post'
+        self.helper.form_action = ''
         self.helper.add_input(Submit('submit', 'Save'))
         super(TaskForm, self).__init__(*args, **kwargs)
-        
-class TagForm(ModelForm):
-    class Meta:
-        model = Tag
-        fields = ['name']
- 
-    name = forms.CharField(max_length=100, widget=forms.Textarea())
-    
-    def __init__(self, *args, **kwargs):
-        self.helper = FormHelper()
-        self.helper.add_input(Submit('submit', 'Save'))
-        super(TagForm, self).__init__(*args, **kwargs)
-
-TaskFormSet = inlineformset_factory(Task, Task.tags.through, fields='__all__')
