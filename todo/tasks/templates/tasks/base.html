@@ -11,8 +11,14 @@
          <!-- Latest compiled and minified JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>         
 
+         <!-- Masonary -->
+         <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
+         
+         <!-- App style sheet -->
+         <link rel="stylesheet" type="text/css" href="{% static 'tasks/style.css' %}" />
     </head>
     <body>
+    <div class="grid js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columnWidth": 200, "gutter": 20 }'>
     <div class="content container">
         <div class="row">
             <div class="col-md-6">
