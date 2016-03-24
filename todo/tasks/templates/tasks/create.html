@@ -3,6 +3,6 @@
 {% block content %}
     {% csrf_token %}
     {% load crispy_forms_tags %}
-    {{ form|crispy }}
+    {% crispy form %}
     <a href="{% url 'tasks:index' %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back</a></h2>
 {% endblock %}
